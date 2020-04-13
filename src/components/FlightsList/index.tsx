@@ -2,8 +2,6 @@
 import React, { useMemo } from 'react';
 
 import MaterialTable from 'material-table';
-import Paper from '@material-ui/core/Paper';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { Flight, FlightTypes } from 'models/flights';
 
@@ -13,7 +11,7 @@ interface FlightsListProps {
 }
 
 const columns = [
-	{ title: 'Departure', field: 'departureName' },
+	{ title: 'Departure', field: 'departureName', defaultSort: 'desc' },
 	{ title: 'Departure time', field: 'departureTime', type: 'date' },
 	{ title: 'Arrival', field: 'arrivalName' },
 	{ title: 'Arrival time', field: 'arrivalTime', type: 'date' },
@@ -45,19 +43,15 @@ const FlightsList: React.FC<FlightsListProps> = (
 	}, [flightList]);
 
 	return (
-		<Paper>
-			{!isLoading && (
-				<MaterialTable
-					columns={columns as any}
-					data={data}
-					title="Flights"
-					options={{
-						filtering: true,
-					}}
-				/>
-			)}
-			{isLoading && <LinearProgress />}
-		</Paper>
+		<MaterialTable
+			isLoading={isLoading}
+			columns={columns as any}
+			data={data}
+			title="Flights"
+			options={{
+				filtering: true,
+			}}
+		/>
 	);
 };
 
