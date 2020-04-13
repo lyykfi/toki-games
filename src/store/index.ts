@@ -9,7 +9,10 @@ export const getStore = (): Store => {
 	
 	const store = configureStore({
 		reducer: rootReducer,
-		middleware: [...getDefaultMiddleware({ thunk: false }),  sagaMiddleware],
+		middleware: [...getDefaultMiddleware({
+			thunk: false,
+			serializableCheck: false,
+		}), sagaMiddleware],
 	});
 
 	sagaMiddleware.run(rootSaga);
